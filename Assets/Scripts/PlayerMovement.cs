@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Tooltip("Speed at which the player moves.")]
     public float moveSpeed = 5f;
 
     void Update()
