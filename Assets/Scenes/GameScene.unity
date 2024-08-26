@@ -989,7 +989,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63237ecb4ed83a948a285aeb916aac22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
 --- !u!54 &2071904210
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1015,7 +1014,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -1024,5 +1023,5 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 410087041}
   - {fileID: 584593798}
-  - {fileID: 2071904205}
   - {fileID: 1416516681}
+  - {fileID: 2071904205}
