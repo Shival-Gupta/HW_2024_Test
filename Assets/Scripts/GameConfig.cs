@@ -4,21 +4,16 @@ using System.IO;
 public class GameConfig : MonoBehaviour
 {
     [Header("Configuration File")]
-    [Tooltip("Path to the JSON configuration file.")]
     [SerializeField] private string jsonFilePath = "Assets/Resources/doofus_diary.json";
 
-    [Header("Default Player Configuration")]
-    [Tooltip("Settings related to the player character.")]
+    [Header("Default Configuration")]
     [SerializeField] private PlayerData playerData = new PlayerData();
-
-    [Header("Default Pulpit Configuration")]
-    [Tooltip("Settings related to the pulpit platforms.")]
     [SerializeField] private PulpitData pulpitData = new PulpitData();
 
-    public PlayerData PlayerData => playerData; // Public getter for PlayerData
-    public PulpitData PulpitData => pulpitData; // Public getter for PulpitData
+    public PlayerData PlayerData => playerData;
+    public PulpitData PulpitData => pulpitData;
 
-    private void Start()
+    private void Awake()
     {
         LoadSettingsFromJson();
     }
@@ -27,32 +22,28 @@ public class GameConfig : MonoBehaviour
     {
         if (string.IsNullOrEmpty(jsonFilePath))
         {
-            Debug.LogError("JSON file path is not set.");
+            Debug.LogError("JSON file path is not set. Proceeding with Default Configuration.");
             return;
         }
 
         if (!File.Exists(jsonFilePath))
         {
-            Debug.LogError($"JSON file not found at: {jsonFilePath}");
+            Debug.LogError($"JSON file not found at: {jsonFilePath}. Proceeding with Default Configuration.");
             return;
         }
 
         try
         {
-            // Read the JSON file
             string json = File.ReadAllText(jsonFilePath);
-
-            // Deserialize JSON into a wrapper class
             GameSettingsWrapper settingsWrapper = JsonUtility.FromJson<GameSettingsWrapper>(json);
 
-            // Assign values if the wrapper contains data
             if (settingsWrapper.player_data != null)
             {
                 playerData = settingsWrapper.player_data;
             }
             else
             {
-                Debug.LogWarning("Player data not found in the JSON file.");
+                Debug.LogWarning("Player data not found in the JSON file. Using default values.");
             }
 
             if (settingsWrapper.pulpit_data != null)
@@ -61,10 +52,10 @@ public class GameConfig : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Pulpit data not found in the JSON file.");
+                Debug.LogWarning("Pulpit data not found in the JSON file. Using default values.");
             }
 
-            Debug.Log("Settings loaded successfully.");
+            Debug.Log($"Settings loaded successfully from {jsonFilePath}");
         }
         catch (System.Exception e)
         {
@@ -83,13 +74,13 @@ public class GameSettingsWrapper
 [System.Serializable]
 public class PlayerData
 {
-    public float speed = 3.0f;
+    public float speed = 3f;
 }
 
 [System.Serializable]
 public class PulpitData
 {
-    public float min_pulpit_destroy_time = 4.0f;
-    public float max_pulpit_destroy_time = 5.0f;
+    public float min_pulpit_destroy_time = 4f;
+    public float max_pulpit_destroy_time = 5f;
     public float pulpit_spawn_time = 2.5f;
 }
