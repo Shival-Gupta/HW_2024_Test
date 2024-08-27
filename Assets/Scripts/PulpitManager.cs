@@ -32,17 +32,25 @@ public class PulpitManager : MonoBehaviour
         {
             if (activePulpits.Count >= 2)
             {
-                Destroy(activePulpits.Dequeue());   // Dequeing oldest pulpit
-                yield return new WaitForSeconds(gameConfig.PulpitData.pulpit_spawn_time);
+                Destroy(activePulpits.Dequeue());   // Dequeuing oldest pulpit
             }
-            
+
             GameObject newPulpit = Instantiate(pulpitPrefab, currentSpawnLocation, Quaternion.identity);
             activePulpits.Enqueue(newPulpit);
 
+            // Calculate pulpit lifetime
+            float pulpitLifetime = Random.Range(gameConfig.PulpitData.min_pulpit_destroy_time, gameConfig.PulpitData.max_pulpit_destroy_time);
+
+            // Pass the pulpit lifetime to the Pulpit script
+            Pulpit pulpitScript = newPulpit.GetComponent<Pulpit>();
+            if (pulpitScript != null)
+            {
+                pulpitScript.Initialize(pulpitLifetime);
+            }
+
             currentSpawnLocation = GetNextSpawnLocation(currentSpawnLocation);
 
-            float destroyTime = Random.Range(gameConfig.PulpitData.min_pulpit_destroy_time, gameConfig.PulpitData.max_pulpit_destroy_time);
-            yield return new WaitForSeconds(destroyTime);
+            yield return new WaitForSeconds(gameConfig.PulpitData.pulpit_spawn_time);
         }
     }
 
