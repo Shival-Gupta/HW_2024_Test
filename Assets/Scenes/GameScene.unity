@@ -665,9 +665,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a017e3119c92441bf5742fc70e49f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFilePath: Assets/Resources/doofus_diary.jsonasdasd
+  jsonFilePath: Assets/Resources/doofus_diary.json
   playerData:
-    speed: 10
+    speed: 3
   pulpitData:
     min_pulpit_destroy_time: 4
     max_pulpit_destroy_time: 5
