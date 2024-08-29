@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -5.75, y: 0.11}
+  m_AnchoredPosition: {x: -5.75, y: 0.28}
   m_SizeDelta: {x: 5, y: 1}
   m_Pivot: {x: -0.3, y: 0.5}
 --- !u!23 &5511549293571363231
@@ -200,7 +200,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 9, y: 0.2, z: 9}
+  m_LocalScale: {x: 9, y: 0.5, z: 9}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4830858221937991136}
@@ -322,4 +322,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59cbfed26f93bc4c9d006a3478f9e32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulpitLifetime: 5

@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (GameConfiguration == null)
         {
-            Debug.LogError("GameConfiguration not found in the scene.");
+            Debug.LogError("Game Configuration not found in the scene.");
             return;
         }
 
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         if (GameConfiguration == null) return;
 
         Vector2 moveInput = playerInputs.Player.Move.ReadValue<Vector2>();
-        Debug.Log(moveInput);
+        // Debug.Log(moveInput);
 
         float moveX = moveInput.x * GameConfiguration.PlayerData.speed * Time.deltaTime;
         float moveZ = moveInput.y * GameConfiguration.PlayerData.speed * Time.deltaTime;
