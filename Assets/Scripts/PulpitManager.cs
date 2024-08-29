@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class PulpitManager : MonoBehaviour
 {
-    [Header("Pulpit Prefab")]
+    [Header("PulpitTimer Prefab")]
     [SerializeField] private GameObject pulpitPrefab;
     [SerializeField] private float pulpitSize = 9f;
 
     [Header("Initial Spawn")]
     [SerializeField] private Vector3 firstSpawnLocation = Vector3.zero;
 
-    private GameConfig gameConfig;
+    private GameConfiguration GameConfiguration;
     private Queue<GameObject> activePulpits = new Queue<GameObject>();
 
     void Start()
     {
-        gameConfig = FindObjectOfType<GameConfig>();
-        if (gameConfig == null)
+        GameConfiguration = FindObjectOfType<GameConfiguration>();
+        if (GameConfiguration == null)
         {
-            Debug.LogError("GameConfig not found in the scene.");
+            Debug.LogError("GameConfiguration not found in the scene.");
             return;
         }
         StartCoroutine(SpawnPulpits());
@@ -39,10 +39,10 @@ public class PulpitManager : MonoBehaviour
             activePulpits.Enqueue(newPulpit);
 
             // Calculate pulpit lifetime
-            float pulpitLifetime = Random.Range(gameConfig.PulpitData.min_pulpit_destroy_time, gameConfig.PulpitData.max_pulpit_destroy_time);
+            float pulpitLifetime = Random.Range(GameConfiguration.PulpitData.min_pulpit_destroy_time, GameConfiguration.PulpitData.max_pulpit_destroy_time);
 
-            // Pass the pulpit lifetime to the Pulpit script
-            Pulpit pulpitScript = newPulpit.GetComponent<Pulpit>();
+            // Pass the pulpit lifetime to the PulpitTimer script
+            PulpitTimer pulpitScript = newPulpit.GetComponent<PulpitTimer>();
             if (pulpitScript != null)
             {
                 pulpitScript.Initialize(pulpitLifetime);
@@ -50,7 +50,7 @@ public class PulpitManager : MonoBehaviour
 
             currentSpawnLocation = GetNextSpawnLocation(currentSpawnLocation);
 
-            yield return new WaitForSeconds(gameConfig.PulpitData.pulpit_spawn_time);
+            yield return new WaitForSeconds(GameConfiguration.PulpitData.pulpit_spawn_time);
         }
     }
 

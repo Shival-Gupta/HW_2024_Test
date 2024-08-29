@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.IO;
 
-public class GameConfig : MonoBehaviour
+public class GameConfiguration : MonoBehaviour
 {
     [Header("Configuration File")]
     [SerializeField] private string jsonFilePath = "Assets/Resources/doofus_diary.json";

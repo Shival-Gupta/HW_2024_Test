@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 
-public class Pulpit : MonoBehaviour
+public class PulpitTimer : MonoBehaviour
 {
     private float pulpitLifetime = 5f;
     private bool isScored = false;

@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 330713759}
   - component: {fileID: 330713758}
   m_Layer: 0
-  m_Name: PulpitSpawner
+  m_Name: PulpitHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 1444421859}
   - component: {fileID: 1444421860}
   m_Layer: 0
-  m_Name: ConfigManager
+  m_Name: ConfigHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -665,12 +665,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a017e3119c92441bf5742fc70e49f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFilePath: Assets/Resources/doofus_diary.json
+  jsonFilePath: Assets/Resources/doofus_diary.json123
   playerData:
-    speed: 3
+    speed: 10
   pulpitData:
-    min_pulpit_destroy_time: 4
-    max_pulpit_destroy_time: 5
+    min_pulpit_destroy_time: 10
+    max_pulpit_destroy_time: 20
     pulpit_spawn_time: 2.5
 --- !u!1 &1574355935
 GameObject:

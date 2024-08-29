@@ -2,25 +2,37 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private GameConfig gameConfig;
+    private GameConfiguration GameConfiguration;
+    private PlayerInputs playerInputs;
 
     void Start()
     {
-        gameConfig = FindObjectOfType<GameConfig>();
+        GameConfiguration = FindObjectOfType<GameConfiguration>();
 
-        if (gameConfig == null)
+        if (GameConfiguration == null)
         {
-            Debug.LogError("GameConfig not found in the scene.");
+            Debug.LogError("GameConfiguration not found in the scene.");
             return;
         }
+
+        playerInputs = new PlayerInputs();
+        playerInputs.Enable();
+    }
+
+    void OnDestroy()
+    {
+        playerInputs.Disable();
     }
 
     void Update()
     {
-        if (gameConfig == null) return;
+        if (GameConfiguration == null) return;
 
-        float moveX = Input.GetAxis("Horizontal") * gameConfig.PlayerData.speed * Time.deltaTime;
-        float moveZ = Input.GetAxis("Vertical") * gameConfig.PlayerData.speed * Time.deltaTime;
+        Vector2 moveInput = playerInputs.Player.Move.ReadValue<Vector2>();
+        Debug.Log(moveInput);
+
+        float moveX = moveInput.x * GameConfiguration.PlayerData.speed * Time.deltaTime;
+        float moveZ = moveInput.y * GameConfiguration.PlayerData.speed * Time.deltaTime;
 
         transform.Translate(moveX, 0, moveZ);
     }
