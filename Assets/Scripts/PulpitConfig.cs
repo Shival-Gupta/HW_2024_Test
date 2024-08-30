@@ -6,14 +6,32 @@ public class PulpitConfig : MonoBehaviour
 {
     private float pulpitLifetime = 5f;
     private TextMeshPro timerText;
+    private BoxCollider boxCollider;
+    private bool hasBeenScored = false;
 
     void Start()
     {
+        boxCollider = GetComponent<BoxCollider>();
         timerText = GetComponentInChildren<TextMeshPro>();
+
+        if (boxCollider == null)
+        {
+            Debug.LogError("BoxCollider not found");
+            return;
+        }
+        if (transform.childCount == 0)
+        {
+            Debug.LogError("Pulpit Prefab has no children.");
+            return;
+        }
+
+        Transform firstChild = transform.GetChild(0);
+        boxCollider.size = firstChild.localScale;
+
         if (timerText == null)
-            Debug.LogError("TextMeshPro component missing on the pulpit prefab.");
-        else
-            StartCoroutine(StartCountdown());
+            Debug.LogWarning("Text (TMP) component missing on the pulpit prefab.");
+
+        StartCoroutine(StartCountdown());
     }
 
     public void Initialize(float lifetime)
@@ -36,5 +54,19 @@ public class PulpitConfig : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !hasBeenScored)
+        {
+            hasBeenScored = true;
+
+            ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
+            if (scoreManager != null)
+            {
+                scoreManager.AddScore();
+            }
+        }
     }
 }

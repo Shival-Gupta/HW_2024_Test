@@ -1,15 +1,33 @@
 using UnityEngine;
+using TMPro;
+
 public class ScoreManager : MonoBehaviour
 {
     public int score = 0;
-    public void IncrementScore()
+    public TextMeshProUGUI scoreText;
+
+    void Start()
     {
-        score++;
-        Debug.Log(score);
+        if (scoreText == null)
+            scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+
+        if (scoreText == null)
+            Debug.LogError("ScoreText TextMeshProUGUI component not found!");
+        else
+            UpdateScoreDisplay();
     }
-    public void AddScore(int value)
+
+    public void AddScore(int value = 1)
     {
         score += value;
-        Debug.Log(score);
+        UpdateScoreDisplay();
+    }
+
+    private void UpdateScoreDisplay()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = score.ToString();
+        }
     }
 }
