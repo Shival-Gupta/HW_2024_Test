@@ -1,22 +1,35 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private GameConfiguration GameConfiguration;
+    private GameConfiguration gameConfiguration;
+    private GameManager gameManager;
     private PlayerInputs playerInputs;
+    
+
 
     void Start()
     {
-        GameConfiguration = FindObjectOfType<GameConfiguration>();
+        playerInputs = new PlayerInputs();
+        playerInputs.Enable();
 
-        if (GameConfiguration == null)
+        gameManager = FindObjectOfType<GameManager>();
+        gameConfiguration = FindObjectOfType<GameConfiguration>();
+
+        if (gameManager == null)
         {
-            Debug.LogError("Game Configuration not found in the scene.");
+            Debug.LogError("[GameScene.Player] GameManager not found in the scene.");
+            Debug.Log("Loading Start Scene...");
+            SceneManager.LoadScene("StartScene", LoadSceneMode.Single);
             return;
         }
 
-        playerInputs = new PlayerInputs();
-        playerInputs.Enable();
+        if (gameConfiguration == null)
+        {
+            Debug.LogError("[GameScene.Player] Game Configuration not found in the scene.");
+            return;
+        }
     }
 
     void OnDestroy()
@@ -26,14 +39,33 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (GameConfiguration == null) return;
+        if (gameConfiguration.isPlayerAlive)
+        {
+            CheckDead();
+            MovePlayer();
+        }
+    }
+
+    void MovePlayer()
+    {
+        if (gameConfiguration == null) return;
 
         Vector2 moveInput = playerInputs.Player.Move.ReadValue<Vector2>();
-        // Debug.Log(moveInput);
 
-        float moveX = moveInput.x * GameConfiguration.PlayerData.speed * Time.deltaTime;
-        float moveZ = moveInput.y * GameConfiguration.PlayerData.speed * Time.deltaTime;
+        float moveX = moveInput.x * gameConfiguration.PlayerData.speed * Time.deltaTime;
+        float moveZ = moveInput.y * gameConfiguration.PlayerData.speed * Time.deltaTime;
 
         transform.Translate(moveX, 0, moveZ);
+    }
+
+    void CheckDead()
+    {
+        if (transform.position.y < -8f)
+        {
+            Debug.Log("[GameScene.Player] Player Died");
+            gameConfiguration.isPlayerAlive = false;
+            if (gameManager != null)
+                gameManager.LoadGameOverScene();
+        }
     }
 }
