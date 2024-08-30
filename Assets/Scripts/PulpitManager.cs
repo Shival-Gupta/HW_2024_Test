@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PulpitManager : MonoBehaviour
 {
-    [Header("PulpitTimer Prefab")]
+    [Header("PulpitConfig Prefab")]
     [SerializeField] private GameObject pulpitPrefab;
     [SerializeField] private float pulpitSize = 9f;
 
@@ -51,14 +51,14 @@ public class PulpitManager : MonoBehaviour
 
             float pulpitLifetime = Random.Range(GameConfiguration.PulpitData.min_pulpit_destroy_time, GameConfiguration.PulpitData.max_pulpit_destroy_time);
 
-            PulpitTimer pulpitScript = newPulpit.GetComponent<PulpitTimer>();
+            PulpitConfig pulpitScript = newPulpit.GetComponent<PulpitConfig>();
             if (pulpitScript != null)
             {
                 pulpitScript.Initialize(pulpitLifetime);
             }
             else
             {
-                Debug.LogError("PulpitTimer script missing on the pulpit prefab.");
+                Debug.LogError("PulpitConfig script missing on the pulpit prefab.");
             }
 
             currentSpawnLocation = GetNextSpawnLocation(currentSpawnLocation);

@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 
-public class PulpitTimer : MonoBehaviour
+public class PulpitConfig : MonoBehaviour
 {
     private float pulpitLifetime = 5f;
     private TextMeshPro timerText;
@@ -11,13 +11,9 @@ public class PulpitTimer : MonoBehaviour
     {
         timerText = GetComponentInChildren<TextMeshPro>();
         if (timerText == null)
-        {
             Debug.LogError("TextMeshPro component missing on the pulpit prefab.");
-        }
         else
-        {
             StartCoroutine(StartCountdown());
-        }
     }
 
     public void Initialize(float lifetime)
