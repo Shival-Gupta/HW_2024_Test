@@ -6,8 +6,6 @@ public class PlayerMovement : MonoBehaviour
     private GameConfiguration gameConfiguration;
     private GameManager gameManager;
     private PlayerInputs playerInputs;
-    
-
 
     void Start()
     {
@@ -52,8 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 moveInput = playerInputs.Player.Move.ReadValue<Vector2>();
 
-        float moveX = moveInput.x * gameConfiguration.PlayerData.speed * Time.deltaTime;
-        float moveZ = moveInput.y * gameConfiguration.PlayerData.speed * Time.deltaTime;
+        float moveX = moveInput.x * gameConfiguration.PlayerData.speed * gameConfiguration.speedMuliplier * Time.deltaTime;
+        float moveZ = moveInput.y * gameConfiguration.PlayerData.speed * gameConfiguration.speedMuliplier * Time.deltaTime;
 
         transform.Translate(moveX, 0, moveZ);
     }

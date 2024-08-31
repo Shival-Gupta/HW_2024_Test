@@ -344,3 +344,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59cbfed26f93bc4c9d006a3478f9e32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pulseScale: 0.8
+  pulseDuration: 0.15

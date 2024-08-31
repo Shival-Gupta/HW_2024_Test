@@ -222,7 +222,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 50, y: -50}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: 122.44, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &70112631
 MonoBehaviour:
@@ -371,7 +371,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 50, y: -50}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: 30.61, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &204047643
 MonoBehaviour:
@@ -690,6 +690,8 @@ MonoBehaviour:
     type: 3}
   pulpitSize: 9
   firstSpawnLocation: {x: 0, y: 0, z: 0}
+  startColor: {r: 0, g: 1, b: 0, a: 1}
+  endColor: {r: 0.766, g: 0.2553333, b: 0, a: 1}
 --- !u!4 &330713759
 Transform:
   m_ObjectHideFlags: 0
@@ -1220,12 +1222,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayerAlive: 1
   playerDieThreshold: -8
-  jsonFilePath: Assets/Resources/doofus_diary.json123
+  speedMuliplier: 3
+  jsonFilePath: Assets/Resources/doofus_diary.json
   playerData:
-    speed: 10
+    speed: 3
   pulpitData:
-    min_pulpit_destroy_time: 5
-    max_pulpit_destroy_time: 8
+    min_pulpit_destroy_time: 4
+    max_pulpit_destroy_time: 5
     pulpit_spawn_time: 2.5
 --- !u!1 &1574355935
 GameObject:

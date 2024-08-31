@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PulpitManager : MonoBehaviour
 {
-    [Header("PulpitConfig Prefab")]
     [SerializeField] private GameObject pulpitPrefab;
     [SerializeField] private float pulpitSize = 9f;
-
-    [Header("Initial Spawn")]
     [SerializeField] private Vector3 firstSpawnLocation = Vector3.zero;
+    [SerializeField] private Color startColor = Color.green;
+    [SerializeField] private Color endColor = new Color(0.6f, 0.2f, 0f);
 
     private GameConfiguration gameConfiguration;
     private Queue<GameObject> activePulpits = new Queue<GameObject>();
@@ -54,7 +53,7 @@ public class PulpitManager : MonoBehaviour
             PulpitConfig pulpitScript = newPulpit.GetComponent<PulpitConfig>();
             if (pulpitScript != null)
             {
-                pulpitScript.Initialize(pulpitLifetime);
+                pulpitScript.Initialize(pulpitLifetime, startColor);
             }
             else
             {
@@ -74,16 +73,16 @@ public class PulpitManager : MonoBehaviour
 
         switch (direction)
         {
-            case 0: // +x direction
+            case 0: 
                 nextLocation = currentLocation + new Vector3(pulpitSize, 0, 0);
                 break;
-            case 1: // -x direction
+            case 1: 
                 nextLocation = currentLocation + new Vector3(-pulpitSize, 0, 0);
                 break;
-            case 2: // +z direction
+            case 2: 
                 nextLocation = currentLocation + new Vector3(0, 0, pulpitSize);
                 break;
-            case 3: // -z direction
+            case 3:
                 nextLocation = currentLocation + new Vector3(0, 0, -pulpitSize);
                 break;
         }

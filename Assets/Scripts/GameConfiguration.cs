@@ -5,6 +5,7 @@ public class GameConfiguration : MonoBehaviour
 {
     public bool isPlayerAlive = true;
     public float playerDieThreshold = -8f;
+    public float speedMuliplier = 3f;
     
     [Header("Configuration File")]
     [SerializeField] private string jsonFilePath = "Assets/Resources/doofus_diary.json";

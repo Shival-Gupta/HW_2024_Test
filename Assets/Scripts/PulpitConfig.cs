@@ -4,6 +4,9 @@ using System.Collections;
 
 public class PulpitConfig : MonoBehaviour
 {
+    [SerializeField] private float pulseScale = 0.8f;
+    [SerializeField] private float pulseDuration = 0.15f;
+
     private float pulpitLifetime = 5f;
     private TextMeshPro timerText;
     private BoxCollider boxCollider;
@@ -31,12 +34,20 @@ public class PulpitConfig : MonoBehaviour
         if (timerText == null)
             Debug.LogWarning("Text (TMP) component missing on the pulpit prefab.");
 
+        StartCoroutine(PulseSize(pulseScale, pulseDuration));
         StartCoroutine(StartCountdown());
+        StartCoroutine(ManagePulpitVisuals());
     }
 
-    public void Initialize(float lifetime)
+    public void Initialize(float lifetime, Color initialColor)
     {
         pulpitLifetime = lifetime;
+
+        MeshRenderer pulpitRenderer = GetComponentInChildren<MeshRenderer>();
+        if (pulpitRenderer != null)
+            pulpitRenderer.material.color = initialColor;
+        else
+            Debug.LogError("[PulpitConfig] MeshRenderer not found on pulpit or its children!");
     }
 
     private IEnumerator StartCountdown()
@@ -68,5 +79,44 @@ public class PulpitConfig : MonoBehaviour
                 scoreManager.AddScore();
             }
         }
+    }
+
+    private IEnumerator ManagePulpitVisuals()
+    {
+        MeshRenderer pulpitRenderer = GetComponentInChildren<MeshRenderer>();
+        if (pulpitRenderer == null)
+        {
+            Debug.LogError("[PulpitConfig] MeshRenderer not found on pulpit or its children!");
+            yield break;
+        }
+
+        Color startColor = pulpitRenderer.material.color;
+        Color endColor = new Color(0.6f, 0.2f, 0f); 
+
+        float elapsedTime = 0f;
+        while (elapsedTime < pulpitLifetime)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / pulpitLifetime; 
+            pulpitRenderer.material.color = Color.Lerp(startColor, endColor, t); 
+            yield return null;
+        }
+    }
+
+    private IEnumerator PulseSize(float targetScale, float duration)
+    {
+        Vector3 originalScale = transform.localScale;
+        Vector3 targetScaleVector = originalScale * targetScale;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+            transform.localScale = Vector3.Lerp(targetScaleVector, originalScale, t);
+            yield return null;
+        }
+
+        transform.localScale = originalScale;
     }
 }
